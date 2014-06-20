@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Sha1coin対応sgminer</title>
+</head>
+
+<body>
+<h1>Sha1coin対応sgminer</h1>
+
+<h2>概要</h2>
+<p><a href="http://ohac.github.io/sha1coin/">Sha1coin</a>にも対応した所謂GPU用マイナーです。</p>
+<p>グラフィックカードやCPUに統合されたグラフィック処理部分を利用することで、
+Sha1coinの採掘やトリップ検索をCPUのみの場合より効率よく行えます。</p>
+<p>利用にはOpenCLが動作する環境が必要となります。</p>
+
+
+<hr>
+<h2>ダウンロード</h2>
+<ul>
+<li> Windows用バイナリ : <a href="https://mega.co.nz/#!EYphCZwS!vwV58RivQ6-fqF-3Se_iwtck-stWT35Q0lz_ip9jZcE">sph-sgminer-20140620-win32bin.zip</a> </li>
+<li> ソースコード : <a href="https://mega.co.nz/#!gVxxTSoT!jLhd2EgoPiZ6XzlrfDYl-Y_FV12MfQVq25zLa9VB9G8">sph-sgminer-20140620.zip</a> </li>
+<li> GitHub : <a href="https://github.com/holo-n94/sph-sgminer">holo-n94/sph-sgminer</a> </li>
+</ul>
+
+
+<hr>
+<h2>ビルド例</h2>
+<table border=1 width="100%">
+<tr><td>
+<code>
+./autogen.sh <br>
+./configure <br>
+make <br>
+</code>
+</td></tr>
+</table>
+<p>依存関係やオプションについてはREADME.mdを参照してください。</p>
+
+
+<hr>
+<h2>実行例</h2>
+Windows <br>
+<table border=1 width="100%">
+<tr><td>
+<code>
+sgminer.exe -k sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;password&gt; -I 20 -g 1 -w 64 --trip GPGPU/
+</code>
+</td></tr>
+</table>
+<br>
+
+Linux等 <br>
+<table border=1 width="100%">
+<tr><td>
+<code>
+GPU_MAX_ALLOC_PERCENT=100 ./sgminer -k sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;password&gt; -I 20 -g 1 -w 64 --trip GPGPU/
+</code>
+</td></tr>
+</table>
+
+
+<hr>
+<h2>変更履歴</h2>
+<ul>
+<li>20140620
+  <ul>
+  <li> Sha1coinへの対応 </li>
+  </ul>
+</li>
+</ul>
+
+
+<hr>
+<h2>寄付</h2>
+Bitcoin, BTC : 158etJZnwseqb5KzbjyL2V7yWbvz6C5p5N <br>
+Litecoin, LTC : LgG9Z3DLx5Pehrcjs9ptheu7D2vQ8hgPox <br>
+Monacoin, MONA : MAhEEjEheeWNDPJJrd1UcEvJJEJ1FDb85K <br>
+Ringo, RIN : RT1oQeD22wkWuu6v1Wo2sykXMbKS4ooWWZ <br>
+
+
+<hr>
+
+</body>
+</html>
