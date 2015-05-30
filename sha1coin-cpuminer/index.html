@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SSE2対応sha1coin-cpuminer</title>
+</head>
+
+<body>
+<h1>SSE2対応sha1coin-cpuminer</h1>
+
+<h2>概要</h2>
+<p><a href="http://ohac.github.io/sha1coin/">Sha1coin</a>用のcpuminerの改造版です。</p>
+<p>SSE2を利用して並列処理しているので、Sha1coinの採掘やトリップ検索をオリジナル版より効率よく行えます。</p>
+<p>利用にはSSE2に対応した環境が必要ですが、現在一般的に利用されているx86やamd64のPCであれば対応していると思います。</p>
+
+
+<hr>
+<h2>ダウンロード</h2>
+<ul>
+<li> Windows用バイナリ : <a href="https://mega.co.nz/#!EUQUCIRB!aVRR2v5VPmcrkCOuI5l8HLTxFraI2h9LxAeFjhgDuUQ">sha1coin-cpuminer-20150530-win32bin.zip</a> </li>
+<li> ソースコード : <a href="https://mega.co.nz/#!dVBknarB!N1VXvkQBdbxwj-MYWIb121bGh-ll_yFf-c6PxYAqse0">sha1coin-cpuminer-20150530.zip</a> </li>
+<li> GitHub : <a href="https://github.com/holo-n94/sha1coin-cpuminer">holo-n94/sha1coin-cpuminer</a> </li>
+</ul>
+
+
+<hr>
+<h2>ビルド例</h2>
+<table border=1 width="100%">
+<tr><td>
+<code>
+./autogen.sh <br>
+./configure CFLAGS=&quot;-O2 -msse2&quot; <br>
+make <br>
+</code>
+</td></tr>
+</table>
+<p>依存関係についてはREADME.mdを参照してください。</p>
+<p>SSE2を有効にするには「-msse2」オプションが必要です。
+その際は「-O3」の最適化オプションを指定するとおかしくなる場合があるようです。</p>
+
+
+<hr>
+<h2>実行例</h2>
+<table border=1 width="100%">
+<tr><td>
+<code>
+minerd.exe -a sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;password&gt; -t 4 -f Trip/
+</code>
+</td></tr>
+</table>
+
+
+<hr>
+<h2>変更履歴</h2>
+<ul>
+<li>20150530 (2015/05/30)
+  <ul>
+  <li> SSE2への対応 </li>
+  </ul>
+</li>
+</ul>
+
+
+<hr>
+<h2>寄付</h2>
+Bitcoin, BTC : 158etJZnwseqb5KzbjyL2V7yWbvz6C5p5N <br>
+Litecoin, LTC : LgG9Z3DLx5Pehrcjs9ptheu7D2vQ8hgPox <br>
+Monacoin, MONA : MAhEEjEheeWNDPJJrd1UcEvJJEJ1FDb85K <br>
+Ringo, RIN : RT1oQeD22wkWuu6v1Wo2sykXMbKS4ooWWZ <br>
+Sha1coin, SHA : SWYJZcWqwmbWGjFU2wJh8z2ZXd1YtnjS2d <br>
+
+
+<hr>
+
+</body>
+</html>
