@@ -1,23 +1,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SSE2対応sha1coin-cpuminer</title>
+<title>SSE2/AVX2対応sha1coin-cpuminer</title>
 </head>
 
 <body>
-<h1>SSE2対応sha1coin-cpuminer</h1>
+<h1>SSE2/AVX2対応sha1coin-cpuminer</h1>
 
 <h2>概要</h2>
 <p><a href="http://ohac.github.io/sha1coin/">Sha1coin</a>用のcpuminerの改造版です。</p>
-<p>SSE2を利用して並列処理しているので、Sha1coinの採掘やトリップ検索をオリジナル版より効率よく行えます。</p>
-<p>利用にはSSE2に対応した環境が必要ですが、現在一般的に利用されているx86やamd64のPCであれば対応していると思います。</p>
+<p>SSE2やAVX2を利用して並列処理しているので、Sha1coinの採掘やトリップ検索をオリジナル版より効率よく行えます。</p>
+<p>利用にはSSE2やAVX2に対応した環境が必要で、現在一般的に利用されているx86やamd64のPCであればSSE2には対応していると思います。</p>
+<p>AVX2対応版は対応環境を持ち合わせていないため十分なテストが行えておらず、実験的な位置づけであることをご了承ください。</p>
 
 
 <hr>
 <h2>ダウンロード</h2>
 <ul>
-<li> Windows用バイナリ : <a href="https://mega.co.nz/#!0ZIklSLS!hcBMBY2_nfN0KBfjNmxeVJbTwMjhaCdGP9D1v4bzYXU">sha1coin-cpuminer-20150531-win32bin.zip</a> </li>
-<li> ソースコード : <a href="https://mega.co.nz/#!9RBTnB4S!bXBvV4vSmMzZkvbGzU85Qtm7NGh4f2Dz4TdjmZ_Hs50">sha1coin-cpuminer-20150531.zip</a> </li>
+<li> SSE2対応Windows用バイナリ32bit版 : <a href="https://mega.co.nz/#!cQwVgbaI!KJHaNla9muggfovffNlGs82pIA3lBTPXvGP3EYN8MVY">sha1coin-cpuminer-20150603-win32bin.zip</a> </li>
+<li> SSE2対応Windows用バイナリ64bit版 : <a href="https://mega.co.nz/#!IYoiyQpZ!awlsDMCmOGXdVAuuuSVIB5CJ6JT-GrqJ8wOl8h3IN1E">sha1coin-cpuminer-20150603-win64bin.zip</a> </li>
+<li> AVX2対応Windows用バイナリ32bit版（ベータ版） : <a href="https://mega.co.nz/#!EUhVwRCA!OVzVjuxanV1wZmZX39WB97_lvgK_6SIVwYatgtA0r6c">sha1coin-cpuminer-20150603-win32bin-avx2.zip</a> </li>
+<li> AVX2対応Windows用バイナリ64bit版（ベータ版） : <a href="https://mega.co.nz/#!YBZUGDqT!ddDKGrWPspKEdyxhJIfIrmdQy7krji33gnUkQgKasKM">sha1coin-cpuminer-20150603-win64bin-avx2.zip</a> </li>
+<li> ソースコード : <a href="https://mega.co.nz/#!tJZRyIxS!xae4XirrM_l3N6zY3y1LCbWlnMNsA9nzFsN7IKpnBEE">sha1coin-cpuminer-20150603.zip</a> </li>
 <li> GitHub : <a href="https://github.com/holo-n94/sha1coin-cpuminer">holo-n94/sha1coin-cpuminer</a> </li>
 </ul>
 
@@ -52,6 +56,12 @@ minerd.exe -a sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;passw
 <hr>
 <h2>変更履歴</h2>
 <ul>
+<li>20150603 (2015/06/03)
+  <ul>
+  <li> AVX2への実験的対応 </li>
+  <li> Windows用バイナリの64bit版を作成 </li>
+  </ul>
+</li>
 <li>20150531 (2015/05/31)
   <ul>
   <li> いくつかのイントリンシック命令をマクロに置き換え </li>
