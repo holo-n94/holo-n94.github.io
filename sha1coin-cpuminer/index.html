@@ -5,12 +5,17 @@
 </head>
 
 <body>
-<h1>SSE2/AVX2対応sha1coin-cpuminer</h1>
+<h1>SSE2/XOP/AVX2対応sha1coin-cpuminer</h1>
 
 <h2>概要</h2>
 <p><a href="http://ohac.github.io/sha1coin/">Sha1coin</a>用のcpuminerの改造版です。</p>
+
 <p>SSE2やAVX2を利用して並列処理しているので、Sha1coinの採掘やトリップ検索をオリジナル版より効率よく行えます。</p>
-<p>利用にはSSE2やAVX2に対応した環境が必要で、現在一般的に利用されているx86やamd64のPCであればSSE2には対応していると思います。</p>
+
+<p>利用にはSSE2やAVX2に対応した環境が必要で、現在一般的に利用されているx86やamd64のPCであればSSE2には対応していると思います。 <br>
+XOPにはBulldozer以降のAMD CPUやAPU、AVX2にはHaswell以降のCore iシリーズが対応しているようです。<br>
+メーカーのスペックシートや、<a href="http://www.cpuid.com/softwares/cpu-z.html">CPU-Z</a>等のツールで対応命令を確認して環境に合ったものを選んでください。</p>
+
 <p>AVX2対応版は対応環境を持ち合わせていないため十分なテストが行えておらず、実験的な位置づけであることをご了承ください。</p>
 
 
@@ -21,7 +26,14 @@
 <li> SSE2対応Windows用バイナリ64bit版 : <a href="https://mega.co.nz/#!IYoiyQpZ!awlsDMCmOGXdVAuuuSVIB5CJ6JT-GrqJ8wOl8h3IN1E">sha1coin-cpuminer-20150603-win64bin.zip</a> </li>
 <li> AVX2対応Windows用バイナリ32bit版（ベータ版） : <a href="https://mega.co.nz/#!EUhVwRCA!OVzVjuxanV1wZmZX39WB97_lvgK_6SIVwYatgtA0r6c">sha1coin-cpuminer-20150603-win32bin-avx2.zip</a> </li>
 <li> AVX2対応Windows用バイナリ64bit版（ベータ版） : <a href="https://mega.co.nz/#!YBZUGDqT!ddDKGrWPspKEdyxhJIfIrmdQy7krji33gnUkQgKasKM">sha1coin-cpuminer-20150603-win64bin-avx2.zip</a> </li>
+
+<!--
 <li> ソースコード : <a href="https://mega.co.nz/#!tJZRyIxS!xae4XirrM_l3N6zY3y1LCbWlnMNsA9nzFsN7IKpnBEE">sha1coin-cpuminer-20150603.zip</a> </li>
+-->
+
+<li> XOP対応Windows用バイナリ32bit版 : <a href="https://mega.co.nz/#!RQByGLpC!wfofPj0V4BSlRZf_0-I8BTwpgeuWRz9VCmdrcmrCEG4">sha1coin-cpuminer-20150727-win32bin-xop.zip</a> </li>
+<li> XOP対応Windows用バイナリ64bit版 : <a href="https://mega.co.nz/#!oQ4FAD7Q!W7OT_9Hk6p86GoU48aQcfDv7Us21k3pdVrxz1FZvKPk">sha1coin-cpuminer-20150727-win64bin-xop.zip</a> </li>
+<li> ソースコード : <a href="https://mega.co.nz/#!YNg1kAoT!jbCZiuSbhMbgkztyVS1IKSK0LmaHf5SoT_sTE3nKbyM">sha1coin-cpuminer-20150727.zip</a> </li>
 <li> GitHub : <a href="https://github.com/holo-n94/sha1coin-cpuminer">holo-n94/sha1coin-cpuminer</a> </li>
 </ul>
 
@@ -56,6 +68,11 @@ minerd.exe -a sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;passw
 <hr>
 <h2>変更履歴</h2>
 <ul>
+<li>20150727 (2015/07/28)
+  <ul>
+  <li> XOPへの対応 </li>
+  </ul>
+</li>
 <li>20150603 (2015/06/03)
   <ul>
   <li> AVX2への実験的対応 </li>
