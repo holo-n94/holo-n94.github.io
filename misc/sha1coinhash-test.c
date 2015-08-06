@@ -236,11 +236,19 @@ void sha1hash12byte(const char *input, uint32_t *m_state)
 }
 
 
-void sha1hash80byte(const uint8_t *input, uint32_t *m_state)
+void sha1hash80byte(const uint8_t *input, char *str)
 {
 	uint32_t W[16];
 	uint32_t a, b, c, d, e;
+	uint32_t m_state[5];
 	int i;
+
+	const char b64t[] = {
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+		'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+		'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+		'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
+	};
 
 	// SHA-1 initialization constants
 	m_state[0] = H0;
@@ -507,51 +515,35 @@ void sha1hash80byte(const uint8_t *input, uint32_t *m_state)
 	m_state[3] += d;
 	m_state[4] += e;
 
-	m_state[0] = swab32(m_state[0]);
-	m_state[1] = swab32(m_state[1]);
-	m_state[2] = swab32(m_state[2]);
-	m_state[3] = swab32(m_state[3]);
-	m_state[4] = swab32(m_state[4]);
-}
+	// Base64 encode
+	str[0] = b64t[m_state[0] >> 26];
+	str[1] = b64t[(m_state[0] >> 20) & 63];
+	str[2] = b64t[(m_state[0] >> 14) & 63];
+	str[3] = b64t[(m_state[0] >> 8) & 63];
+	str[4] = b64t[(m_state[0] >> 2) & 63];
+	str[5] = b64t[(m_state[0] << 4 | m_state[1] >> 28) & 63];
+	str[6] = b64t[(m_state[1] >> 22) & 63];
+	str[7] = b64t[(m_state[1] >> 16) & 63];
+	str[8] = b64t[(m_state[1] >> 10) & 63];
+	str[9] = b64t[(m_state[1] >> 4) & 63];
+	str[10] = b64t[(m_state[1] << 2 | m_state[2] >> 30) & 63];
+	str[11] = b64t[(m_state[2] >> 24) & 63];
+	str[12] = b64t[(m_state[2] >> 18) & 63];
+	str[13] = b64t[(m_state[2] >> 12) & 63];
+	str[14] = b64t[(m_state[2] >> 6) & 63];
+	str[15] = b64t[m_state[2] & 63];
+	str[16] = b64t[m_state[3] >> 26];
+	str[17] = b64t[(m_state[3] >> 20) & 63];
+	str[18] = b64t[(m_state[3] >> 14) & 63];
+	str[19] = b64t[(m_state[3] >> 8) & 63];
+	str[20] = b64t[(m_state[3] >> 2) & 63];
+	str[21] = b64t[(m_state[3] << 4 | m_state[4] >> 28) & 63];
+	str[22] = b64t[(m_state[4] >> 22) & 63];
+	str[23] = b64t[(m_state[4] >> 16) & 63];
+	str[24] = b64t[(m_state[4] >> 10) & 63];
+	str[25] = b64t[(m_state[4] >> 4) & 63];
 
-
-void b64enc(const uint32_t *hash, char *str)
-{
-	const char b64t[] = {
-		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-		'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-		'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-		'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
-	};
-
-	str[0] = b64t[hash[0] >> 26];
-	str[1] = b64t[(hash[0] >> 20) & 63];
-	str[2] = b64t[(hash[0] >> 14) & 63];
-	str[3] = b64t[(hash[0] >> 8) & 63];
-	str[4] = b64t[(hash[0] >> 2) & 63];
-	str[5] = b64t[(hash[0] << 4 | hash[1] >> 28) & 63];
-	str[6] = b64t[(hash[1] >> 22) & 63];
-	str[7] = b64t[(hash[1] >> 16) & 63];
-	str[8] = b64t[(hash[1] >> 10) & 63];
-	str[9] = b64t[(hash[1] >> 4) & 63];
-	str[10] = b64t[(hash[1] << 2 | hash[2] >> 30) & 63];
-	str[11] = b64t[(hash[2] >> 24) & 63];
-	str[12] = b64t[(hash[2] >> 18) & 63];
-	str[13] = b64t[(hash[2] >> 12) & 63];
-	str[14] = b64t[(hash[2] >> 6) & 63];
-	str[15] = b64t[hash[2] & 63];
-	str[16] = b64t[hash[3] >> 26];
-	str[17] = b64t[(hash[3] >> 20) & 63];
-	str[18] = b64t[(hash[3] >> 14) & 63];
-	str[19] = b64t[(hash[3] >> 8) & 63];
-	str[20] = b64t[(hash[3] >> 2) & 63];
-	str[21] = b64t[(hash[3] << 4 | hash[4] >> 28) & 63];
-	str[22] = b64t[(hash[4] >> 22) & 63];
-	str[23] = b64t[(hash[4] >> 16) & 63];
-	str[24] = b64t[(hash[4] >> 10) & 63];
-	str[25] = b64t[(hash[4] >> 4) & 63];
-	str[26] = b64t[(hash[4] << 2) & 63];
-	str[27] = 0;
+	memcpy(str + 26, str, 11);
 }
 
 
@@ -820,9 +812,7 @@ void sha1coinhash(uint8_t *input, uint32_t *hash)
 	int i, j, k;
 	__attribute__((aligned(16))) uint32_t tmp[4];
 
-	sha1hash80byte(input, prehash);
-	b64enc(prehash, str);
-	memcpy(str + 26, str, 11);
+	sha1hash80byte(input, str);
 
 	for (i = 0; i < 5; i++){
 		hash_m128i[i] = _mm_set1_epi32(0);
@@ -867,9 +857,7 @@ void sha1coinhash(uint8_t *input, uint32_t *hash)
 	uint32_t prehash[5] __attribute__((aligned(32)));
 	int i;
 
-	sha1hash80byte(input, prehash);
-	b64enc(prehash, str);
-	memcpy(str + 26, str, 11);
+	sha1hash80byte(input, str);
 
 	for (i = 0; i < 26; i++){
 		sha1hash12byte(str + i, prehash);
@@ -889,12 +877,14 @@ int main(int argc, char *argv[])
 {
 	uint8_t data[100] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOP";
 	uint32_t hash[5] = {0};
+	uint8_t buf[4];
 	int i;
 
 	sha1coinhash(data, hash);
 
 	for (i = 0; i < 5; i++){
-		printf("%02x%02x%02x%02x", (hash[i] >> 24) & 0xff, (hash[i] >> 16) & 0xff, (hash[i] >> 8) & 0xff, (hash[i]) & 0xff);
+		memcpy(buf, hash + i, 4);
+		printf("%02x%02x%02x%02x", buf[0], buf[1], buf[2], buf[3]);
 	}
 
 	printf("\n");
