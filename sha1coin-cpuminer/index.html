@@ -1,11 +1,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SSE2/AVX2対応sha1coin-cpuminer</title>
+<title>SSE2/XOP/AVX2/NEON対応sha1coin-cpuminer</title>
 </head>
 
 <body>
-<h1>SSE2/XOP/AVX2対応sha1coin-cpuminer</h1>
+<h1>SSE2/XOP/AVX2/NEON対応sha1coin-cpuminer</h1>
 
 <h2>概要</h2>
 <p><a href="http://ohac.github.io/sha1coin/">Sha1coin</a>用のcpuminerの改造版です。</p>
@@ -33,13 +33,22 @@ XOPにはBulldozer以降のAMD CPUやAPU、AVX2にはHaswell以降のCore iシ�
 
 <li> XOP対応Windows用バイナリ32bit版 : <a href="https://mega.co.nz/#!RQByGLpC!wfofPj0V4BSlRZf_0-I8BTwpgeuWRz9VCmdrcmrCEG4">sha1coin-cpuminer-20150727-win32bin-xop.zip</a> </li>
 <li> XOP対応Windows用バイナリ64bit版 : <a href="https://mega.co.nz/#!oQ4FAD7Q!W7OT_9Hk6p86GoU48aQcfDv7Us21k3pdVrxz1FZvKPk">sha1coin-cpuminer-20150727-win64bin-xop.zip</a> </li>
+
+
+<!--
 <li> ソースコード : <a href="https://mega.co.nz/#!YNg1kAoT!jbCZiuSbhMbgkztyVS1IKSK0LmaHf5SoT_sTE3nKbyM">sha1coin-cpuminer-20150727.zip</a> </li>
+-->
+
+<li> ソースコード : <a href="https://mega.nz/#!lVYFWBTC!WVHTL8aZRiQRg9wFSBZqty8lwFU-wja09VJWynNSqCA">sha1coin-cpuminer-20150921.zip</a> </li>
+
 <li> GitHub : <a href="https://github.com/holo-n94/sha1coin-cpuminer">holo-n94/sha1coin-cpuminer</a> </li>
 </ul>
 
 
 <hr>
 <h2>ビルド例</h2>
+
+SSE2有効 x86/amd64環境用 <br>
 <table border=1 width="100%">
 <tr><td>
 <code>
@@ -49,6 +58,19 @@ make <br>
 </code>
 </td></tr>
 </table>
+<br>
+
+NEON有効 Raspberry Pi 2用 <br>
+<table border=1 width="100%">
+<tr><td>
+<code>
+./autogen.sh <br>
+./configure CFLAGS=&quot;-O2 -mfpu=neon -march=armv7-a&quot; <br>
+make <br>
+</code>
+</td></tr>
+</table>
+
 <p>依存関係についてはREADME.mdを参照してください。</p>
 <p>SSE2を有効にするには「-msse2」オプションが必要です。
 その際は「-O3」の最適化オプションを指定するとおかしくなる場合があるようです。</p>
@@ -56,10 +78,21 @@ make <br>
 
 <hr>
 <h2>実行例</h2>
+Windows <br>
 <table border=1 width="100%">
 <tr><td>
 <code>
 minerd.exe -a sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;password&gt; -t 4 -f Trip/
+</code>
+</td></tr>
+</table>
+<br>
+
+Linux <br>
+<table border=1 width="100%">
+<tr><td>
+<code>
+./minerd -a sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;password&gt; -t 4 -f Trip/
 </code>
 </td></tr>
 </table>
@@ -68,6 +101,11 @@ minerd.exe -a sha1coin -o &lt;host&gt;:&lt;port&gt; -u &lt;user&gt; -p &lt;passw
 <hr>
 <h2>変更履歴</h2>
 <ul>
+<li>20150921 (2015/09/21)
+  <ul>
+  <li> ARM NEONへの対応 </li>
+  </ul>
+</li>
 <li>20150727 (2015/07/28)
   <ul>
   <li> XOPへの対応 </li>
